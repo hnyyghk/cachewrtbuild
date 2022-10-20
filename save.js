@@ -14,9 +14,7 @@ try {
 
         const toolchain = core.getInput("toolchain");
         if (toolchain == "true") {
-            stdout = execSync(
-                'git log --pretty=tformat:"%h" -n1 tools toolchain'
-            )
+            stdout = execSync("find tools toolchain -type f | xargs md5sum | md5sum | awk '{ print $1 }'")
                 .toString()
                 .trim();
             keyString = keyString + "-" + stdout;
